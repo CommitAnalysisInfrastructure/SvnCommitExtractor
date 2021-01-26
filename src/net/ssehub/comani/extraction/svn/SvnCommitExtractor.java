@@ -143,7 +143,7 @@ public class SvnCommitExtractor extends AbstractCommitExtractor {
         // Check if SVN is installed and available
         ExecutionResult executionResult = processUtilities.executeCommand(SVN_VERSION_COMMAND, null);
         if (!executionResult.executionSuccessful()) {
-            throw new ExtractionSetupException("Testing SVN availability failed.\n" 
+            throw new ExtractionSetupException("Testing SVN availability failed." + System.lineSeparator()
                     + executionResult.getErrorOutputData());
         }
         // Check if the maximum number of allowed process executions attempts is defined
@@ -244,7 +244,7 @@ public class SvnCommitExtractor extends AbstractCommitExtractor {
         // Get the commit id from the first line of the given commit string (if available)
         String commitId = "<no_id>";
         if (commit.startsWith("r")) {
-            int indexOfFirstLineBreak = commit.indexOf("\n");
+            int indexOfFirstLineBreak = commit.indexOf(System.lineSeparator());
             if (indexOfFirstLineBreak > -1) {
                 try {                    
                     int revisionNumber = Integer.parseInt(commit.substring(1, indexOfFirstLineBreak));
@@ -258,7 +258,7 @@ public class SvnCommitExtractor extends AbstractCommitExtractor {
                 }
             }
             // Exclude the first line indicating the revision number (or any non "Index: ..."-string)
-            commit = commit.substring(indexOfFirstLineBreak + 1);
+            commit = commit.substring(indexOfFirstLineBreak + System.lineSeparator().length());
         }
         // Create the commit object        
         Commit commitObject = createCommit(commitId, "<no_date>", new String[0], commit);
@@ -333,7 +333,7 @@ public class SvnCommitExtractor extends AbstractCommitExtractor {
     private String[] createCommitHeader(String commitHeaderString) {
         String[] commitHeaderLines = new String[0];
         if (!commitHeaderString.isEmpty()) {
-            commitHeaderLines = commitHeaderString.split("\n");
+            commitHeaderLines = commitHeaderString.split(System.lineSeparator());
         }
         return commitHeaderLines;
     }
@@ -382,7 +382,7 @@ public class SvnCommitExtractor extends AbstractCommitExtractor {
      */
     private List<ChangedArtifact> createChangedArtifacts(String commitContent) {
         List<ChangedArtifact> changedArtifacts = null;
-        String[] commitContentLines = commitContent.split("\n");
+        String[] commitContentLines = commitContent.split(System.lineSeparator());
         if (commitContentLines.length > 1) {
             String commitContentLine;
             changedArtifacts = new ArrayList<ChangedArtifact>();
@@ -449,7 +449,7 @@ public class SvnCommitExtractor extends AbstractCommitExtractor {
          */
         Map<String, String> revisionMap = new HashMap<String, String>();
         if (!revisionLog.isEmpty()) {
-            String[] revisionLogLines = revisionLog.split("\n");
+            String[] revisionLogLines = revisionLog.split(System.lineSeparator());
             for (int i = 0; i < revisionLogLines.length; i++) {
                 String revisionLogLine = revisionLogLines[i];
                 if (!revisionLogLine.isEmpty() && revisionLogLine.startsWith("r")) {
