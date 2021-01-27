@@ -121,7 +121,7 @@ public class SvnCommitExtractor extends AbstractCommitExtractor {
      * Constructs a new instance of this extractor, which extracts commits from SVN repositories on any platform.
      * 
      * @param extractionProperties the properties of the properties file defining the extraction process and the
-     *        configuration of the extractor in use; all properties, which start with the prefix "<tt>extraction.</tt>"
+     *        configuration of the extractor in use; all properties, which start with the prefix "<i>extraction.</i>"
      * @param commitQueue the {@link IExtractionQueue} for transferring commits from an extractor to an analyzer
      * @throws ExtractionSetupException if setting-up this extractor failed
      */
@@ -482,7 +482,7 @@ public class SvnCommitExtractor extends AbstractCommitExtractor {
     /**
      * Returns the commit date of a revision log line, like:<br><br>
      * 
-     * <tt>r78 | cameronrich | 2007-03-14 13:03:51 +0100 (Mi, 14 Mrz 2007)</tt><br><br>
+     * <i>r78 | cameronrich | 2007-03-14 13:03:51 +0100 (Mi, 14 Mrz 2007)</i><br><br>
      * 
      * Hence, the return value is "2007-03-14 13:03:51 +0100 (Mi, 14 Mrz 2007)" in this example.
      * 
